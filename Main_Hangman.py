@@ -3,7 +3,6 @@ import random
 import time
 
 # FUNCTIONS:
-
 def word_file_loader(): #LOADS WORDS FROM FILE
 
     # CHECKS IF FILE EXISTS OR NOT
@@ -330,7 +329,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
     elif Select == 7:
         Hang_G()
 
-#MAIN
+#MAIN SCREEN:
 
 #POSSIBLE ANSWERS
 Yes = ["yes", "YES", "Yes", "yEs", "yeS", "YeS", "Y", "y", "yE", "ye", "YE", "Ye"]
