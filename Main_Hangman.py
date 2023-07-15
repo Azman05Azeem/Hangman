@@ -8,6 +8,7 @@ def word_file_loader(): #LOADS WORDS FROM FILE
     # CHECKS IF FILE EXISTS OR NOT
     try:
         file = open("Wordlist.txt", "r")
+        file.close()
     except FileNotFoundError:
         time.sleep(0.6)
         print("\n>> 'Wordlist.txt' Not found...")
@@ -19,7 +20,7 @@ def word_file_loader(): #LOADS WORDS FROM FILE
         file.close()
 
     file = open("Wordlist.txt", "r")
-    read_file_line = file.readline()
+    read_file_line = str(file.readline())
 
     # READING A FILE IF IT IS NOT EMPTY
     if read_file_line == "":
@@ -31,14 +32,15 @@ def word_file_loader(): #LOADS WORDS FROM FILE
         file.close()
 
     else:
-        wordlist = []
-
         # LOADS WORDLIST FROM FILE
+        wordlist = []
         while True:
-            wordlist.append(str(read_file_line))
+            wordlist.append(read_file_line)
             read_file_line = str(file.readline())
             if read_file_line == "":
                 break
+            elif ValueError:
+                read_file_line = str(file.readline())
 
         # SELECTS RANDOM WORD FROM THE WORDLIST
         selected_word = random.choice(wordlist)
@@ -50,24 +52,10 @@ def main_game(selected_word): #MANAGES THE GAME
     word_length = len(selected_word)
 
     # DECIDES THE NUMBER OF HIDDEN WORDS
-    if word_length <= 4:
+    if word_length <= 3:
         hidden_counts = 2
-    elif word_length > 4 and (word_length <= 6):
-        hidden_counts = 3
-    elif word_length > 6 and (word_length <= 8):
-        hidden_counts = 4
-    elif word_length > 8 and (word_length <= 10):
-        hidden_counts = 6
-    elif word_length > 10 and (word_length <= 12):
-        hidden_counts = 7
-    elif word_length > 12 and (word_length <= 14):
-        hidden_counts = 9
-    elif word_length > 14 and (word_length <= 16):
-        hidden_counts = 11
-    elif word_length > 16 and (word_length <= 18):
-        hidden_counts = 13
     else:
-        hidden_counts = 15
+        hidden_counts = int((word_length/2) + (word_length/random.randint(3,4)))
 
     # DECIDES WHICH INDEX OF THE WORD TO HIDE
     hidden_index = random.sample(range(0, word_length), hidden_counts)
@@ -75,10 +63,10 @@ def main_game(selected_word): #MANAGES THE GAME
 
     # ELIMINATING "SPACES" FROM THE INDEX LIST
     for index in range(word_length):
-        if (selected_word[index] == " " or (selected_word[index] == "\n")) and (index in hidden_index):
+        if (selected_word[index] in [" ", "\n"]) and (index in hidden_index):
             hidden_index.remove(index)
 
-    # CHARACTER LIST FOR HIDDEN
+    # HIDDEN CHARACTER'S LIST
     hidden_charlist_upper = []
     hidden_charlist_lower = []
 
@@ -99,6 +87,11 @@ def main_game(selected_word): #MANAGES THE GAME
             generated_string += selected_word[index]
 
     # STRING DISPLAY
+    time.sleep(0.5)
+    print("\n>> Selecting a Word...")
+    time.sleep(1.3)
+    print(">> A Word has been Selected!")
+    time.sleep(0.3)
     print("\n======================")
     print(">>> GUESS THE WORD <<<")
     print("======================")
@@ -160,7 +153,7 @@ def main_game(selected_word): #MANAGES THE GAME
                 time.sleep(0.3)
                 print("\n>> WORD: " + generated_string)
 
-    # WINNING SITUATIONS
+    # SITUATIONS (WIN/LOSS)
     if Won:
         time.sleep(0.6)
         print("======================================")
@@ -329,7 +322,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
     elif Select == 7:
         Hang_G()
 
-#MAIN SCREEN:
+#MAIN
 
 #POSSIBLE ANSWERS
 Yes = ["yes", "YES", "Yes", "yEs", "yeS", "YeS", "Y", "y", "yE", "ye", "YE", "Ye"]
@@ -348,18 +341,23 @@ user_input = input("\n>> Start the Game? (Yes or No): ")
 # VALIDATION CHECKS FOR STARTING OR NOT
 while user_input not in Valid:
     time.sleep(0.3)
-    user_input = input(">> Invalid Input! (Yes or No): ")
+    user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
 
 while user_input in Yes:
     time.sleep(0.3)
     word_file_loader()
     time.sleep(0.3)
     user_input = input("\n>> Start Again? (Yes or No): ")
+    while user_input not in Valid:
+        time.sleep(0.3)
+        user_input = input(">> Invalid Input! Enter 'Yes' or 'No': ")
     if user_input in No:
         time.sleep(0.3)
         user_input = input("\n>> Confirm? (Yes or No): ")
         if user_input in Yes:
-            user_input = "No"
+            break
+        else:
+            user_input = "Yes"
 
 time.sleep(0.6)
 print("\n=======================")
