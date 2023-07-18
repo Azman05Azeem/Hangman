@@ -1,4 +1,3 @@
->> SIMPLE HANGMAN GAME 
-- A very Simple Game, fill up the 'Wordlist.txt' to Start.
-- 'Wordlist.txt' filled with "Names of Countries" is provided.
+# SIMPLE HANGMAN GAME 
+- Recreating the simple 'Hangman' Game!
 - Created by Azman.
