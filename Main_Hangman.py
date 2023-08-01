@@ -2,8 +2,9 @@
 import random
 import time
 
+
 # FUNCTIONS:
-def word_file_loader(): #LOADS WORDS FROM FILE
+def word_file_loader():  # LOADS WORDS FROM FILE
 
     # CHECKS IF FILE EXISTS OR NOT
     try:
@@ -47,7 +48,8 @@ def word_file_loader(): #LOADS WORDS FROM FILE
         file.close()
         main_game(selected_word)
 
-def main_game(selected_word): #MANAGES THE GAME
+
+def main_game(selected_word):  # MANAGES THE GAME
 
     word_length = len(selected_word)
 
@@ -55,7 +57,7 @@ def main_game(selected_word): #MANAGES THE GAME
     if word_length <= 3:
         hidden_counts = 2
     else:
-        hidden_counts = int((word_length/2) + (word_length/random.randint(3,4)))
+        hidden_counts = int((word_length / 2) + (word_length / random.randint(3, 4)))
 
     # DECIDES WHICH INDEX OF THE WORD TO HIDE
     hidden_index = random.sample(range(0, word_length), hidden_counts)
@@ -67,13 +69,13 @@ def main_game(selected_word): #MANAGES THE GAME
             hidden_index.remove(index)
 
     # HIDDEN CHARACTER'S LIST
-    hidden_charlist_upper = []
-    hidden_charlist_lower = []
+    hidden_character_list_upper = []
+    hidden_character_list_lower = []
 
     for index in range(word_length):
         if index in hidden_index:
-            hidden_charlist_upper.append(selected_word[index].upper())
-            hidden_charlist_lower.append(selected_word[index].lower())
+            hidden_character_list_upper.append(selected_word[index].upper())
+            hidden_character_list_lower.append(selected_word[index].lower())
 
     character_left = len(hidden_index)
 
@@ -99,28 +101,28 @@ def main_game(selected_word): #MANAGES THE GAME
     print("\n>> WORD: " + generated_string)
 
     # INPUT FROM USER, IN CASE OF WORD IT ONLY TAKES FIRST CHARACTER
-    Won = False
+    won = False
     attempts = 1
 
     while True:
-        user_input = input(">> Enter Your Guess: ")
-        while user_input == "":
-            user_input = input(">> Invalid Input!: ")
-        user_input = user_input[0]
+        user_input_guess = input(">> Enter Your Guess: ")
+        while user_input_guess == "":
+            user_input_guess = input(">> Invalid Input!: ")
+        user_input_guess = user_input_guess[0]
 
         # CHECKING THE VALUES
-        if user_input.upper() in hidden_charlist_upper:
+        if user_input_guess.upper() in hidden_character_list_upper:
             time.sleep(0.6)
             print("\n=====================")
             print(">>> CORRECT GUESS <<<")
             print("=====================")
 
             # REMOVE THE CHARACTER AND ITS INDEX FROM HIDDEN LIST
-            while user_input.upper() in hidden_charlist_upper:
-                temp = hidden_charlist_upper.index(user_input.upper())
+            while user_input_guess.upper() in hidden_character_list_upper:
+                temp = hidden_character_list_upper.index(user_input_guess.upper())
                 temp_a = hidden_index[temp]
-                hidden_charlist_lower.remove(user_input.lower())
-                hidden_charlist_upper.remove(user_input.upper())
+                hidden_character_list_lower.remove(user_input_guess.lower())
+                hidden_character_list_upper.remove(user_input_guess.upper())
                 hidden_index.remove(temp_a)
                 character_left -= 1
 
@@ -137,11 +139,11 @@ def main_game(selected_word): #MANAGES THE GAME
             print("\n>> WORD: " + generated_string)
 
             if character_left == 0:
-                Won = True
+                won = True
                 break
         else:
             time.sleep(0.5)
-            Graphics(attempts)
+            graphics(attempts)
             attempts += 1
             if attempts > 7:
                 break
@@ -154,7 +156,7 @@ def main_game(selected_word): #MANAGES THE GAME
                 print("\n>> WORD: " + generated_string)
 
     # SITUATIONS (WIN/LOSS)
-    if Won:
+    if won:
         time.sleep(0.6)
         print("======================================")
         print(">>> YOU CORRECTLY GUESSED THE WORD <<<")
@@ -166,9 +168,10 @@ def main_game(selected_word): #MANAGES THE GAME
         print("===================================")
         print("\n>> The Word was: " + selected_word)
 
-def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
 
-    def Hang_A():
+def graphics(select):  # HANG-MAN ANIMATIONS
+
+    def hang_a():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -187,26 +190,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    def Hang_B():
-        print("")
-        print("==============")
-        print(">>> HANGER <<<")
-        print("==============\n")
-        print("/()\\")
-        print(" ||=====><|||><")
-        print(" ||        |")
-        print(" ||       (=)")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print(" ||")
-        print("/()\\__")
-
-    def Hang_C():
+    def hang_b():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -215,6 +199,25 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||=====><|||><")
         print(" ||        |")
         print(" ||       (=)")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print(" ||")
+        print("/()\\__")
+
+    def hang_c():
+        print("")
+        print("==============")
+        print(">>> HANGER <<<")
+        print("==============\n")
+        print("/()\\")
+        print(" ||=====><|||><")
+        print(" ||        |")
+        print(" ||       (=)")
         print(" ||        |")
         print(" ||        |")
         print(" ||        |")
@@ -225,7 +228,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    def Hang_D():
+    def hang_d():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -244,7 +247,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    def Hang_E():
+    def hang_e():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -263,7 +266,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    def Hang_F():
+    def hang_f():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -282,7 +285,7 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    def Hang_G():
+    def hang_g():
         print("")
         print("==============")
         print(">>> HANGER <<<")
@@ -301,39 +304,40 @@ def Graphics(Select): #HANGINGMAN ANIMATIONS/GRAPHICS
         print(" ||")
         print("/()\\__")
 
-    if Select == 1:
-        Hang_A()
+    if select == 1:
+        hang_a()
 
-    elif Select == 2:
-        Hang_B()
+    elif select == 2:
+        hang_b()
 
-    elif Select == 3:
-        Hang_C()
+    elif select == 3:
+        hang_c()
 
-    elif Select == 4:
-        Hang_D()
+    elif select == 4:
+        hang_d()
 
-    elif Select == 5:
-        Hang_E()
+    elif select == 5:
+        hang_e()
 
-    elif Select == 6:
-        Hang_F()
+    elif select == 6:
+        hang_f()
 
-    elif Select == 7:
-        Hang_G()
+    elif select == 7:
+        hang_g()
 
-#MAIN
 
-#POSSIBLE ANSWERS
+# MAIN
+
+# POSSIBLE ANSWERS
 Yes = ["yes", "YES", "Yes", "yEs", "yeS", "YeS", "Y", "y", "yE", "ye", "YE", "Ye"]
 No = ["No", "no", "NO", "nO", "N", "n"]
 
 Valid = Yes + No
 time.sleep(0.6)
 
-print("\n=======================")
-print(">>> HANING MAN GAME <<<")
-print("=======================")
+print("\n========================")
+print(">>> HANGING-MAN GAME <<<")
+print("========================")
 
 time.sleep(0.3)
 user_input = input("\n>> Start the Game? (Yes or No): ")
