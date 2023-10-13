@@ -1,3 +1,3 @@
 # SIMPLE HANGMAN GAME 
 - Recreating the simple 'Hangman' Game!
-- Room For Improvement Always Available!
+- Room For Improvement is always 'Available'!
